@@ -8,28 +8,27 @@
     return Tutorial.create({
 
         title:tutorial.title,
-        description:tutorial.description 
+        description:tutorial.description ,
+        
     }).then((tutorial)=>{
-        console.log('>> Created tutorial:' + tutorial);
+        console.log(">> Created tutorial: " + JSON.stringify(tutorial, null, 4));
+        console.log('>> Created tutorial 2:' + tutorial);
         return  tutorial;
     })
     .catch((err )=>{
-        es.status(500).send({
-            message: 'error  occured',
-            err: err.message})
             console.log(">> Error while creating tutorial: ", err);
         });
 
     };
 
-const createComment = (tutorialId,comment)=>{
+const createComment = (_tutorialId,comment)=>{
         return Comment.create({
             name:comment.name,
             text:comment.text,
-            tutorialId: comment.tutorialId
+            tutorialId: _tutorialId
         }).then((data)=>{
             console.log('>> Created comment:' + data);
-          //  console.log(">> Created comment: " + JSON.stringify(data, null, 4));
+            console.log(">> Created comment: " + JSON.stringify(data, null, 4));
 
          return data;
         }).catch((err)=>{

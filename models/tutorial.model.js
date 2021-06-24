@@ -1,16 +1,15 @@
- module.exports=(sequelize,Sequelize)=> { 
-    
-    const Tutorial = sequelize.define('Tutorial',{
-    title:{
-        type: Sequelize.STRING
-    },
-    description:{
-        type: Sequelize.STRING
-    },
-}
-,{
-     freezeTableName: true
+ module.exports = (sequelize, Sequelize) => {
 
-})
-return Tutorial;
-}
+     const Tutorial = sequelize.define('Tutorial', {
+         title: {
+             type: Sequelize.STRING
+         },
+         description: {
+             type: Sequelize.STRING
+         },
+     }, {
+         freezeTableName: true
+
+     })
+     return Tutorial;
+ }
