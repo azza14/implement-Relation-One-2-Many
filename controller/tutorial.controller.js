@@ -71,26 +71,29 @@
  };
 
 
- const findAllTags = () => {
-     return Tag.findAll({
-             include: [{
-                 model: Tutorial,
-                 as: 'tutorials',
-                 attributes: ['id', 'title', 'description'],
-                 through: {
-                     attributes: []
-                 }
-             }, ],
-         })
-         .then((data) => {
-             return data
-         })
-         .catch((err) => {
-             console.log(">> Error while retrieving Tags: ", err);
-
-         });
- };
-
+// exports.findById = (id) => {
+//   return Tutorial.findByPk(id, {
+//     include: [
+//       {
+//         model: Tag,
+//         as: "tags",
+//         attributes: ["id", "name"],
+//         through: {
+//           attributes: [],
+//         },
+//         // through: {
+//         //   attributes: ["tag_id", "tutorial_id"],
+//         // },
+//       },
+//     ],
+//   })
+//     .then((tutorial) => {
+//       return tutorial;
+//     })
+//     .catch((err) => {
+//       console.log(">> Error while finding Tutorial: ", err);
+//     });
+// };
 
  module.exports = {
      createTutorial,
