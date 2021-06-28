@@ -1,8 +1,9 @@
- const db = require('../models/');
+const db = require('../models/');
 
  const Tutorial = db.tutorials;
  const Comment = db.comments;
  const Tag = db.tags;
+
 
  const createTutorial = (tutorial) => {
 
@@ -10,10 +11,11 @@
 
              title: tutorial.title,
              description: tutorial.description,
+             published: tutorial.published ? tutorial.published: false
 
          }).then((tutorial) => {
              console.log(">> Created tutorial: " + JSON.stringify(tutorial, null, 4));
-             console.log('>> Created tutorial 2:' + tutorial);
+           //  console.log('>> Created tutorial 2:' + tutorial);
              return tutorial;
          })
          .catch((err) => {
@@ -63,37 +65,53 @@
 
  const findAllTutorial = () => {
      return Comment.findAll({
-             include: ['comments']
+             include: [
+                 {
+                 model:Tag,
+                 as:'tags',
+                 attributes:['id','name'],
+                 through:{
+                     attributes:[],
+                 }
+               }, 
+               {
+                   model:Comment
+               }
+                
+                ]
          })
          .then((data) => {
              return data
+         }).catch((err)=>{
+             console.log('Error while retrieving Tutorials',err)
          });
  };
 
+ //Get the Tutorial for a given tutorial id
 
-// exports.findById = (id) => {
-//   return Tutorial.findByPk(id, {
-//     include: [
-//       {
-//         model: Tag,
-//         as: "tags",
-//         attributes: ["id", "name"],
-//         through: {
-//           attributes: [],
-//         },
-//         // through: {
-//         //   attributes: ["tag_id", "tutorial_id"],
-//         // },
-//       },
-//     ],
-//   })
-//     .then((tutorial) => {
-//       return tutorial;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding Tutorial: ", err);
-//     });
-// };
+exports.findById = (id) => {
+  return Tutorial.findByPk(id, {
+    include: [
+      {
+        model: Tag,
+        as: "tags",
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+         through: {
+           attributes: ["tag_id", "tutorial_id"],
+         },
+      },
+    ],
+  })
+    .then((tutorial) => {
+      return tutorial;
+    })
+    .catch((err) => {
+      console.log(">> Error while finding Tutorial: ", err);
+    });
+};
 
  module.exports = {
      createTutorial,
@@ -101,5 +119,5 @@
      findTutorialById,
      findCommentById,
      findAllTutorial,
-     findAllTags
+    
  }

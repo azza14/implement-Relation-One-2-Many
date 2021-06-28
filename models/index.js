@@ -37,13 +37,13 @@ db.comments.belongsTo(db.tutorials, { foreignKey: 'tutorialId',as: 'tutorial'})
 db.tags.belongsToMany(db.tutorials,{
     through:'tutarial_tag',
     as:'tutorials',
-    foreignKey:'tag-id',
+    foreignKey:'tag_id',
 })
 
 db.tutorials.belongsToMany(db.tags,{
     through:'tutarial_tag',
     as:'tutorials',
-    foreignKey:'tutorial-id',
+    foreignKey:'tutorial_id',
 })
 
 module.exports = db;

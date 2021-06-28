@@ -7,6 +7,11 @@
          description: {
              type: Sequelize.STRING
          },
+             published:{
+                 
+                type:Sequelize.BOOLEAN
+            }
+        ,
      }, {
          freezeTableName: true
 
