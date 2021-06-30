@@ -18,5 +18,5 @@ let routes= app =>{
     router.get("/api/comment/:id", tutorialController.findCommentById);
 
 };
-//module.exports= routes;
+module.exports= routes;
 
